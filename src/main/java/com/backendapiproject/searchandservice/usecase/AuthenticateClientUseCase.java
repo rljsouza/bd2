@@ -1,5 +1,5 @@
 package com.backendapiproject.searchandservice.usecase;
 
-interface AuthenticateClientUseCase {
+public interface AuthenticateClientUseCase {
     boolean execute(Long clientId, String password);
 }

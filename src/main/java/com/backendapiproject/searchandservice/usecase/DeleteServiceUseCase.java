@@ -1,5 +1,5 @@
 package com.backendapiproject.searchandservice.usecase;
 
-interface DeleteServiceUseCase {
+public interface DeleteServiceUseCase {
     void execute(Long serviceId);
 }

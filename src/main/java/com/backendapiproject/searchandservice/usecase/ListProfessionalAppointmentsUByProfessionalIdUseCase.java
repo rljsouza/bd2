@@ -4,6 +4,6 @@ import com.backendapiproject.searchandservice.core.domain.Appointment;
 
 import java.util.List;
 
-interface ListProfessionalAppointmentsUByProfessionalIdUseCase {
+public interface ListProfessionalAppointmentsUByProfessionalIdUseCase {
     List<Appointment> execute(Long professionalId);
 }
