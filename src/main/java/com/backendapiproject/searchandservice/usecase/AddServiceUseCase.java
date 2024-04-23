@@ -1,5 +1,7 @@
 package com.backendapiproject.searchandservice.usecase;
 
+import com.backendapiproject.searchandservice.core.domain.Service;
+
 interface AddServiceUseCase {
-    void addService(Service service);
+    void execute(Service service);
 }

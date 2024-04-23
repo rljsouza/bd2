@@ -1,5 +1,8 @@
 package com.backendapiproject.searchandservice.usecase;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 interface ScheduleServiceUseCase {
-    void scheduleService(int serviceId, int clientId, String date, String time);
+    void execute(Long serviceId, Long clientId, LocalDate date, LocalDateTime time);
 }

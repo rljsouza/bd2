@@ -1,5 +1,9 @@
 package com.backendapiproject.searchandservice.usecase;
 
-interface ListProfessionalAppointmentsUseCase {
-    List<Appointment> listProfessionalAppointments(int professionalId);
+import com.backendapiproject.searchandservice.core.domain.Appointment;
+
+import java.util.List;
+
+interface ListProfessionalAppointmentsUByProfessionalIdUseCase {
+    List<Appointment> execute(Long professionalId);
 }

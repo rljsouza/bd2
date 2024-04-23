@@ -1,5 +1,5 @@
 package com.backendapiproject.searchandservice.usecase;
 
 interface AuthenticateProfessionalUseCase {
-    boolean authenticateProfessional(int professionalId, String password);
+    boolean execute(Long professionalId, String password);
 }

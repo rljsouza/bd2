@@ -4,7 +4,6 @@ import com.backendapiproject.searchandservice.core.domain.Customer;
 
 import java.util.List;
 
-public interface GetAllCustomerUseCase {
+public interface GetAllCustomersUseCase {
     List<Customer> execute();
-
 }

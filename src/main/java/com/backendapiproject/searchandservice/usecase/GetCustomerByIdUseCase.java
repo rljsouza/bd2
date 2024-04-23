@@ -2,8 +2,6 @@ package com.backendapiproject.searchandservice.usecase;
 
 import com.backendapiproject.searchandservice.core.domain.Customer;
 
-public interface GetClientByIdUseCase {
+public interface GetCustomerByIdUseCase {
     Customer execute(Long id);
-
-
 }

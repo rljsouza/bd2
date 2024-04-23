@@ -1,5 +1,7 @@
 package com.backendapiproject.searchandservice.usecase;
 
-public interface CreateClientUseCase {
-    void createClient(Client client);
+import com.backendapiproject.searchandservice.core.domain.Customer;
+
+public interface CreateCustomerUseCase {
+    void execute(Customer customer);
 }

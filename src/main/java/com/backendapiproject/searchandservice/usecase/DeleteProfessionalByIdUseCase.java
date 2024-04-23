@@ -1,5 +1,5 @@
 package com.backendapiproject.searchandservice.usecase;
 
-public interface DeleteProfessionalUseCase {
-    void deleteProfessional(int id);
+public interface DeleteProfessionalByIdUseCase {
+    void execute(Long id);
 }
