@@ -2,6 +2,7 @@ package com.backendapiproject.searchandservice.core.domain;
 
 public class Address {
 
+    private Long id;
     private String street;
     private String complement;
     private Integer number;
@@ -12,13 +13,22 @@ public class Address {
     public Address() {
     }
 
-    public Address(String street, String complement, Integer number, String neighborhood, String zipCode, City city) {
+    public Address(String street, String complement, Integer number, String neighborhood, String zipCode, City city, Long id) {
         this.street = street;
         this.complement = complement;
         this.number = number;
         this.neighborhood = neighborhood;
         this.zipCode = zipCode;
         this.city = city;
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStreet() {

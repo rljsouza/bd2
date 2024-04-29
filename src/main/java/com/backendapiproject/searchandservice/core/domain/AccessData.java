@@ -1,20 +1,23 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import java.util.Set;
+
 public class AccessData {
 
     private Long id;
-    private Professional professional;
-    private Customer customer;
+    private String username;
     private String password;
+    private Set<Role> roles;
+
 
     public AccessData() {
     }
 
-    public AccessData(Long id, Professional professional, Customer customer, String password) {
+    public AccessData(Long id, String password, String username, Set<Role> roles) {
         this.id = id;
-        this.professional = professional;
-        this.customer = customer;
         this.password = password;
+        this.username = username;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -25,21 +28,6 @@ public class AccessData {
         this.id = id;
     }
 
-    public Professional getProfessional() {
-        return professional;
-    }
-
-    public void setProfessional(Professional professional) {
-        this.professional = professional;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public String getPassword() {
         return password;
@@ -47,5 +35,21 @@ public class AccessData {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -1,27 +1,22 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import java.util.List;
+
 public class Review {
     private Long id;
-    private Professional professional;
     private Customer customer;
     private String reviewDescription;
-    private Review rating;
-    private String image;
+    private List<String> images;
 
     public Review() {
     }
 
-    public Review(String image, String reviewDescription, Customer customer, Review rating, Professional professional, Long id) {
-        this.image = image;
+    public Review(List<String> images, String reviewDescription, Customer customer, Long id) {
+        this.images = images;
         this.reviewDescription = reviewDescription;
         this.customer = customer;
-        this.rating = rating;
-        this.professional = professional;
         this.id = id;
     }
-
-
-
 
     public Long getId() {
         return id;
@@ -31,20 +26,12 @@ public class Review {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Review getRating() {
-        return rating;
-    }
-
-    public void setRating(Review rating) {
-        this.rating = rating;
+    public void setImage(List<String> images) {
+        this.images = images;
     }
 
     public String getReviewDescription() {
@@ -63,11 +50,4 @@ public class Review {
         this.customer = customer;
     }
 
-    public Professional getProfessional() {
-        return professional;
-    }
-
-    public void setProfessional(Professional professional) {
-        this.professional = professional;
-    }
 }

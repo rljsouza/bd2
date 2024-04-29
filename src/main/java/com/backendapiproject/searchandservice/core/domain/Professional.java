@@ -1,5 +1,7 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import java.util.List;
+
 public class Professional {
 
     private Long id;
@@ -10,6 +12,8 @@ public class Professional {
     private String CPF;
     private String phone;
     private String email;
+    private List<Service> services;
+
 
     public Professional() {
     }
