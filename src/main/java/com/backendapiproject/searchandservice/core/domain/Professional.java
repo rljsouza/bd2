@@ -1,5 +1,6 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Professional {
@@ -12,13 +13,13 @@ public class Professional {
     private String CPF;
     private String phone;
     private String email;
-    private List<Service> services;
+    private List<Service> services = new ArrayList<>();
 
 
     public Professional() {
     }
 
-    public Professional(Long id, String establishmentName, String name, Address address, String CNPJ, String CPF, String phone, String email) {
+    public Professional(Long id, String establishmentName, String name, Address address, String CNPJ, String CPF, String phone, String email, List<Service> services) {
         this.id = id;
         this.establishmentName = establishmentName;
         this.name = name;
@@ -27,6 +28,7 @@ public class Professional {
         this.CPF = CPF;
         this.phone = phone;
         this.email = email;
+        this.services = services;
     }
 
     public Long getId() {
@@ -91,5 +93,13 @@ public class Professional {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 }

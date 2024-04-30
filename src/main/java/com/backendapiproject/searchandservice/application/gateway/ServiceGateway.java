@@ -1,6 +1,6 @@
 package com.backendapiproject.searchandservice.application.gateway;
 
-import com.backendapiproject.searchandservice.core.domain.Professional;
+import com.backendapiproject.searchandservice.core.domain.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface ServiceGateway {
 
-    Professional save(Professional country);
+    Service save(Service service);
     void delete(Long id);
-    Professional update(Professional country);
-    Optional<Professional> findById(Long id);
-    List<Professional> findAll();
+    Service update(Service service);
+    Optional<Service> findById(Long id);
+    List<Service> findAll();
 }

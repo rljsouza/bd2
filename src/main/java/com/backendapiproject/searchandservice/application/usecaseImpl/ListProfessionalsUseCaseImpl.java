@@ -2,15 +2,15 @@ package com.backendapiproject.searchandservice.application.usecaseImpl;
 
 import com.backendapiproject.searchandservice.application.gateway.ProfessionalGateway;
 import com.backendapiproject.searchandservice.core.domain.Professional;
-import com.backendapiproject.searchandservice.usecase.GetAllProfessionalsUseCase;
+import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
 
 import java.util.List;
 
-public class GetAllProfessionalsUseCaseImpl implements GetAllProfessionalsUseCase {
+public class ListProfessionalsUseCaseImpl implements ListProfessionalsUseCase {
 
     private final ProfessionalGateway professionalGateway;
 
-    public GetAllProfessionalsUseCaseImpl(ProfessionalGateway professionalGateway) {
+    public ListProfessionalsUseCaseImpl(ProfessionalGateway professionalGateway) {
         this.professionalGateway = professionalGateway;
     }
 

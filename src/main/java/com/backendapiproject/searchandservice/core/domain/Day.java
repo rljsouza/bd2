@@ -1,16 +1,18 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import com.backendapiproject.searchandservice.core.domain.enums.DayOfWeek;
+
 public class Day {
 
     private Long id;
-    private String name;
+    private DayOfWeek name;
 
-    public Day() {
-    }
-
-    public Day(Long id, String name) {
+    public Day(Long id, DayOfWeek name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Day() {
     }
 
     public Long getId() {
@@ -21,11 +23,11 @@ public class Day {
         this.id = id;
     }
 
-    public String getName() {
+    public DayOfWeek getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(DayOfWeek name) {
         this.name = name;
     }
 }

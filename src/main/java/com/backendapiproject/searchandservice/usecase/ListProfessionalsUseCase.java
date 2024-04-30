@@ -4,6 +4,6 @@ import com.backendapiproject.searchandservice.core.domain.Professional;
 
 import java.util.List;
 
-public interface GetAllProfessionalsUseCase {
+public interface ListProfessionalsUseCase {
     List<Professional> execute();
 }

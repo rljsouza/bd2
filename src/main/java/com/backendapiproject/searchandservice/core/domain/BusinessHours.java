@@ -10,17 +10,17 @@ public class BusinessHours {
     private LocalDateTime openingTime;
     private LocalDateTime closingTime;
     private List<Day> day;
-    private LocalDate date;
+    private List<LocalDate> exceptDates;
 
     public BusinessHours() {
     }
 
-    public BusinessHours(Long id, LocalDateTime openingTime, LocalDateTime closingTime, List<Day> day, LocalDate date) {
+    public BusinessHours(Long id, LocalDateTime openingTime, LocalDateTime closingTime, List<Day> day, List<LocalDate> exceptDates) {
         this.id = id;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.day = day;
-        this.date = date;
+        this.exceptDates = exceptDates;
     }
 
     public Long getId() {
@@ -55,11 +55,11 @@ public class BusinessHours {
         this.day = day;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public List<LocalDate> getExceptDates() {
+        return exceptDates;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setExceptDate(List<LocalDate> exceptDates) {
+        this.exceptDates = exceptDates;
     }
 }
