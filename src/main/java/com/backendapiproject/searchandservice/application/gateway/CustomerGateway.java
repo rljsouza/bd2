@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CustomerGateway {
 
     Customer save(Customer customer);
-    void delete(Long id);
+    void deleteById(Long id);
     Customer update(Customer customer);
     Optional<Customer> findById(Long id);
     List<Customer> findAll();

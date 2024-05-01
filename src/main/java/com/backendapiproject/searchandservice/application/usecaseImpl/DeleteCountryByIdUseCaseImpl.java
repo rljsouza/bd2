@@ -17,6 +17,6 @@ public class DeleteCountryByIdUseCaseImpl implements DeleteCountryByIdUseCase {
     @Override
     public void execute(Long id) {
         getCountryById.execute(id);
-        countryGateway.delete(id);
+        countryGateway.deleteById(id);
     }
 }

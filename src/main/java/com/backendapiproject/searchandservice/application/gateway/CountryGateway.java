@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CountryGateway {
 
     Country save(Country country);
-    void delete(Long id);
+    void deleteById(Long id);
     Country update(Country country);
     Optional<Country> findById(Long id);
 }

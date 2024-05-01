@@ -17,7 +17,7 @@ public class DeleteCityByIdUseCaseImpl implements DeleteCityByIdUseCase {
     @Override
     public void execute(Long id) {
         getCityById.execute(id);
-        cityGateway.delete(id);
+        cityGateway.deleteById(id);
     }
 
 }

@@ -17,6 +17,6 @@ public class DeleteStateByIdUseCaseImpl implements DeleteStateByIdUseCase {
     @Override
     public void execute(Long id) {
         getStateById.execute(id);
-        stateGateway.delete(id);
+        stateGateway.deleteById(id);
     }
 }

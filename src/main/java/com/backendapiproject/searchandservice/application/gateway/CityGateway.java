@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CityGateway {
 
     City save(City city);
-    void delete(Long id);
+    void deleteById(Long id);
     City update(City city);
     Optional<City> findById(Long id);
 }

@@ -17,6 +17,6 @@ public class DeleteProfessionalByIdUseCaseImpl implements DeleteProfessionalById
     @Override
     public void execute(Long id) {
         getProfessionalById.execute(id);
-        professionalGateway.delete(id);
+        professionalGateway.deleteById(id);
     }
 }

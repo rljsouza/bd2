@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AddressGateway {
 
     Address save(Address address);
-    void delete(Long id);
+    void deleteById(Long id);
     Address update(Address address);
     Optional<Address> findById(Long id);
 }

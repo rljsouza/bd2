@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface StateGateway {
 
     State save(State state);
-    void delete(Long id);
+    void deleteById(Long id);
     State update(State state);
     Optional<State> findById(Long id);
 }

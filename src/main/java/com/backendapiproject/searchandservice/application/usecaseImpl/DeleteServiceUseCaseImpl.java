@@ -17,6 +17,6 @@ public class DeleteServiceUseCaseImpl implements DeleteServiceByIdUseCase {
     @Override
     public void execute(Long id) {
         getServiceByIdUseCase.execute(id);
-        serviceGateway.delete(id);
+        serviceGateway.deleteById(id);
     }
 }

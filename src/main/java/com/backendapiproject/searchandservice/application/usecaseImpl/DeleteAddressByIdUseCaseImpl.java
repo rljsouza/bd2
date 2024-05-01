@@ -17,7 +17,7 @@ public class DeleteAddressByIdUseCaseImpl implements DeleteAddressByIdUseCase {
     @Override
     public void execute(Long id) {
         getAddressById.execute(id);
-        addressGateway.delete(id);
+        addressGateway.deleteById(id);
     }
 
 }

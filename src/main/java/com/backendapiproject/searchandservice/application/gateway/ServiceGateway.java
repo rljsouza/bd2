@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ServiceGateway {
 
     Service save(Service service);
-    void delete(Long id);
+    void deleteById(Long id);
     Service update(Service service);
     Optional<Service> findById(Long id);
     List<Service> findAll();

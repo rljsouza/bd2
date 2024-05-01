@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ProfessionalGateway {
 
     Professional save(Professional country);
-    void delete(Long id);
+    void deleteById(Long id);
     Professional update(Professional country);
     Optional<Professional> findById(Long id);
     List<Professional> findAll();
