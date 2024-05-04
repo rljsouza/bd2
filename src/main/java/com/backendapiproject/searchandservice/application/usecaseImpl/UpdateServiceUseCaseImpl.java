@@ -17,8 +17,8 @@ public class  UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
     }
 
     @Override
-    public Service execute(Service service) {
-        var currentService = getServiceByIdUseCase.execute(service.getId());
+    public Service execute(Service service, Long id) {
+        var currentService = getServiceByIdUseCase.execute(id);
         ObjectMapperUtil.mapProperties(service, currentService);
         return serviceGateway.update(currentService);
     }

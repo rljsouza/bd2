@@ -1,6 +1,8 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.City;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.CityRequest;
+import com.backendapiproject.searchandservice.infrastructure.mapper.CityMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCityByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCityByIdUseCase;
@@ -31,10 +33,11 @@ public class CityController {
     private final GetCityByIdUseCase getCityByIdUseCase;
     private final UpdateCityUseCase updateCityUseCase;
     private final ListCityUseCase listCityUseCase;
+    private final CityMapper mapper;
 
     @PostMapping
-    public ResponseEntity<City> saveCity(@RequestBody City city) {
-        var savedCity = createCityUseCase.execute(city);
+    public ResponseEntity<City> saveCity(@RequestBody CityRequest request) {
+        var savedCity = createCityUseCase.execute(mapper.toCity(request));
         return new ResponseEntity<>(savedCity, HttpStatus.CREATED);
     }
 
@@ -51,9 +54,8 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody City city) {
-        city.setId(id);
-        var updatedCity = updateCityUseCase.execute(city);
+    public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody CityRequest request) {
+        var updatedCity = updateCityUseCase.execute(mapper.toCity(request), id);
         return new ResponseEntity<>(updatedCity, HttpStatus.OK);
     }
 

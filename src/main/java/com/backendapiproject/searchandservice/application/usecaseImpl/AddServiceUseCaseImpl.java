@@ -24,6 +24,6 @@ public class AddServiceUseCaseImpl implements AddServiceUseCase {
         var professional = getProfessionalById.execute(professionalId);
         var newService = serviceGateway.save(service);
         professional.getServices().add(newService);
-        return updateProfessionalUseCase.execute(professional);
+        return updateProfessionalUseCase.execute(professional, professionalId);
     };
 }

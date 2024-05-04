@@ -1,6 +1,8 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Country;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.CountryRequest;
+import com.backendapiproject.searchandservice.infrastructure.mapper.CountryMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCountryUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCountryByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCountryByIdUseCase;
@@ -31,10 +33,11 @@ public class CountryController {
     private final UpdateCountryUseCase updateCountryUseCase;
     private final GetCountryByIdUseCase getCountryByIdUseCase;
     private final ListCountryUseCase listCountryUseCase;
+    private final CountryMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Country> saveCountry(@RequestBody Country country) {
-        var savedCountry = createCountryUseCase.execute(country);
+    public ResponseEntity<Country> saveCountry(@RequestBody CountryRequest request) {
+        var savedCountry = createCountryUseCase.execute(mapper.toCountry(request));
         return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
     }
 
@@ -51,9 +54,8 @@ public class CountryController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody Country country) {
-        country.setId(id);
-        var updatedCountry = updateCountryUseCase.execute(country);
+    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody CountryRequest request) {
+        var updatedCountry = updateCountryUseCase.execute(mapper.toCountry(request), id);
         return new ResponseEntity<>(updatedCountry, HttpStatus.OK);
     }
 

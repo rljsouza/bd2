@@ -21,9 +21,9 @@ public class UpdateProfessionalUseCaseImpl implements UpdateProfessionalUseCase 
 
 
     @Override
-    public Professional execute(Professional professional) {
-        var currentProfessional = getProfessionalById.execute(professional.getId());
-        var address = updateAddressUseCase.execute(professional.getAddress());
+    public Professional execute(Professional professional, Long id) {
+        var currentProfessional = getProfessionalById.execute(id);
+        var address = updateAddressUseCase.execute(professional.getAddress(), professional.getId());
         ObjectMapperUtil.mapProperties(professional, currentProfessional);
         currentProfessional.setAddress(address);
         return professionalGateway.update(currentProfessional);

@@ -6,7 +6,7 @@ import com.backendapiproject.searchandservice.core.domain.City;
 import com.backendapiproject.searchandservice.usecase.GetCityByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetStateByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateCityUseCase;
-import com.backendapiproject.searchandservice.usecase.UpdateStateUseCase;
+import jakarta.validation.constraints.NotNull;
 
 
 public class UpdateCityUseCaseImpl implements UpdateCityUseCase {
@@ -23,8 +23,8 @@ public class UpdateCityUseCaseImpl implements UpdateCityUseCase {
 
 
     @Override
-    public City execute(City city) {
-        var currentCity = getCityById.execute(city.getId());
+    public City execute(City city, @NotNull Long id) {
+        var currentCity = getCityById.execute(id);
         var state = getStateByIdUseCase.execute(city.getState().getId());
         ObjectMapperUtil.mapProperties(city, currentCity);
         currentCity.setState(state);

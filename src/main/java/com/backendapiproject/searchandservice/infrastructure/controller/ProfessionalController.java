@@ -2,6 +2,8 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Professional;
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
+import com.backendapiproject.searchandservice.infrastructure.mapper.ProfessionalMapper;
 import com.backendapiproject.searchandservice.usecase.AddServiceUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateProfessionalUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteProfessionalByIdUseCase;
@@ -12,7 +14,14 @@ import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -27,12 +36,13 @@ public class ProfessionalController {
     private final DeleteProfessionalByIdUseCase deleteProfessionalByIdUseCase;
     private final ListProfessionalsUseCase listProfessionalsUseCase;
     private final AddServiceUseCase addServiceUseCase;
+    private final ProfessionalMapper mapper;
     private final GetServiceByIdUseCase getServiceByIdUseCase;
 
 
     @PostMapping
-    public ResponseEntity<Professional> saveProfessional(@RequestBody Professional professional) {
-        var savedProfessional = createProfessionalUseCase.execute(professional);
+    public ResponseEntity<Professional> saveProfessional(@RequestBody ProfessionalRequest request) {
+        var savedProfessional = createProfessionalUseCase.execute(mapper.toProfessional(request));
         return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
     }
 
@@ -43,9 +53,8 @@ public class ProfessionalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Professional> updateProfessional(@PathVariable Long id, @RequestBody Professional professional) {
-        professional.setId(id);
-        var updatedProfessional = updateProfessionalUseCase.execute(professional);
+    public ResponseEntity<Professional> updateProfessional(@PathVariable Long id, @RequestBody ProfessionalRequest request) {
+        var updatedProfessional = updateProfessionalUseCase.execute(mapper.toProfessional(request), id);
         return new ResponseEntity<>(updatedProfessional, HttpStatus.OK);
     }
 

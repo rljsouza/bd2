@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.Professional;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.ProfessionalEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,5 +28,8 @@ public class ProfessionalMapper {
         return professionals.stream().map(this::toProfessional).collect(Collectors.toList());
     }
 
+    public Professional toProfessional(ProfessionalRequest request){
+        return mapper.map(request,  Professional.class);
+    }
 
 }

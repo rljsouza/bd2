@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.State;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.StateRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.StateEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,6 +28,11 @@ public class StateMapper {
     public List<State> toSate(List<StateEntity> stateEntities){
         return stateEntities.stream().map(this::toSate).collect(Collectors.toList());
     }
+
+    public State toSate(StateRequest request){
+        return mapper.map(request,  State.class);
+    }
+
 
 
 

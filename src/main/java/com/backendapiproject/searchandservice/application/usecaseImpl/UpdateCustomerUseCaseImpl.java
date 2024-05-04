@@ -20,9 +20,9 @@ public class UpdateCustomerUseCaseImpl implements UpdateCustomerUseCase {
     }
 
     @Override
-    public Customer execute(Customer customer) {
-        var currentCustomer  = getCustomerById.execute(customer.getId());
-        var address = updateAddressUseCase.execute(customer.getAddress());
+    public Customer execute(Customer customer, Long id) {
+        var currentCustomer  = getCustomerById.execute(id);
+        var address = updateAddressUseCase.execute(customer.getAddress(), customer.getAddress().getId());
         ObjectMapperUtil.mapProperties(customer, currentCustomer);
         currentCustomer.setAddress(address);
         return customerGateway.update(currentCustomer);

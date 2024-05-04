@@ -5,6 +5,7 @@ import com.backendapiproject.searchandservice.application.util.ObjectMapperUtil;
 import com.backendapiproject.searchandservice.core.domain.Country;
 import com.backendapiproject.searchandservice.usecase.GetCountryByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateCountryUseCase;
+import jakarta.validation.constraints.NotNull;
 
 public class UpdateCountryUseCaseImpl  implements UpdateCountryUseCase {
 
@@ -18,8 +19,8 @@ public class UpdateCountryUseCaseImpl  implements UpdateCountryUseCase {
 
 
     @Override
-    public Country execute(Country country) {
-        var currentCountry = getCountryByIdUseCase.execute(country.getId());
+    public Country execute(Country country, @NotNull Long id) {
+        var currentCountry = getCountryByIdUseCase.execute(id);
         ObjectMapperUtil.mapProperties(country, currentCountry);
         return countryGateway.update(currentCountry);
     }

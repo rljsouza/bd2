@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.Customer;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.CustomerRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,4 +29,8 @@ public class CustomerMapper {
                 .map(this::toCustomer)
                 .collect(Collectors.toList());
     }
+    public Customer toCustomer(CustomerRequest customer){
+        return mapper.map(customer,  Customer.class);
+    }
+
 }

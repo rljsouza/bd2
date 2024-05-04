@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.ServiceEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,5 +27,11 @@ public class ServiceMapper {
     public List<Service> toService(List<ServiceEntity> services){
         return services.stream().map(this::toService).collect(Collectors.toList());
     }
+
+    public Service toService(ServiceRequest request){
+        return mapper.map(request,  Service.class);
+    }
+
+
 
 }

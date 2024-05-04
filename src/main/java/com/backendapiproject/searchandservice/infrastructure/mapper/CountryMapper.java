@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.Country;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.CountryRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.CountryEntity;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,10 @@ public class CountryMapper {
     public List<Country> toCountry(List<CountryEntity> countries){
         return countries.stream().map(this::toCountry).collect(Collectors.toList());
     }
+    public Country toCountry(CountryRequest request){
+        return mapper.map(request,  Country.class);
+    }
+
 
 
 }

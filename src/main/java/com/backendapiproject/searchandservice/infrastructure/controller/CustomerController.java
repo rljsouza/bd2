@@ -1,6 +1,8 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Customer;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.CustomerRequest;
+import com.backendapiproject.searchandservice.infrastructure.mapper.CustomerMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCustomerUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCustomerByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCustomerByIdUseCase;
@@ -9,7 +11,14 @@ import com.backendapiproject.searchandservice.usecase.UpdateCustomerUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,10 +32,12 @@ public class CustomerController {
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final DeleteCustomerByIdUseCase deleteCustomerByIdUseCase;
     private final ListCustomersUseCase listCustomersUseCase;
+    private final CustomerMapper mapper;
+
 
     @PostMapping
-    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
-        var savedCustomer = createCustomerUseCase.execute(customer);
+    public ResponseEntity<Customer> saveCustomer(@RequestBody CustomerRequest request) {
+        var savedCustomer = createCustomerUseCase.execute(mapper.toCustomer(request));
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
 
@@ -37,9 +48,8 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        customer.setId(id);
-        var updatedCustomer = updateCustomerUseCase.execute(customer);
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest request) {
+        var updatedCustomer = updateCustomerUseCase.execute(mapper.toCustomer(request), id);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
