@@ -10,10 +10,8 @@ import com.backendapiproject.searchandservice.usecase.UpdateServiceUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
-public class ServiceConfig {
+public class ServiceMain {
 
     @Bean
     public GetServiceByIdUseCase getServiceByIdUseCase(ServiceGateway serviceGateway){

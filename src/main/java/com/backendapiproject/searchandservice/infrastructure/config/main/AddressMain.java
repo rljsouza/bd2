@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AddressConfig {
+public class AddressMain {
 
     @Bean
     public CreateAddressUseCase createAddressUseCase(AddressGateway addressGateway, GetCityByIdUseCase getCityByIdUseCase){

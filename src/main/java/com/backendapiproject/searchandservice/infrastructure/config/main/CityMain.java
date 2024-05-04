@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CityConfig {
+public class CityMain {
 
     @Bean
     public CreateCityUseCase createCityUseCase(CityGateway CityGateway, GetStateByIdUseCase getStateByIdUseCase){

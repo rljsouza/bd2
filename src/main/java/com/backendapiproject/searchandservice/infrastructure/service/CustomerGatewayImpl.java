@@ -5,6 +5,7 @@ import com.backendapiproject.searchandservice.core.domain.Customer;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CustomerMapper;
 import com.backendapiproject.searchandservice.infrastructure.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,12 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
     private final CustomerRepository repository;
     private final CustomerMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Customer save(Customer customer) {
+        var password = customer.getAccessData().getPassword();
+        customer.getAccessData().setPassword(passwordEncoder.encode(password));
         var customerEntity =  repository.save(mapper.toCustomerEntity(customer));
         return mapper.toCustomer(customerEntity);
     }

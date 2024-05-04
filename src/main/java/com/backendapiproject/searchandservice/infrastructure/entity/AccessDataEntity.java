@@ -1,7 +1,9 @@
 package com.backendapiproject.searchandservice.infrastructure.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -29,19 +32,14 @@ public class AccessDataEntity {
     private String username;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "access_data_roles",
             joinColumns = @JoinColumn(name = "access_data_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<RoleEntity> roles;
+    private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "accessData")
-    private CustomerEntity customer;
-
-    @OneToOne(mappedBy = "accessData")
-    private ProfessionalEntity professional;
 
 
 }

@@ -13,4 +13,5 @@ public interface StateGateway {
     State update(State state);
     Optional<State> findById(Long id);
     List<State> findAll();
+
 }

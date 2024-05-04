@@ -12,6 +12,10 @@ public class Role {
         this.roleType = roleType;
     }
 
+    public Role(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
     public Role() {
     }
 

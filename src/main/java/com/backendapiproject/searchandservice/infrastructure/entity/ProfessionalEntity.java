@@ -60,7 +60,7 @@ public class ProfessionalEntity {
     )
     private List<ServiceEntity> services = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "access_data_id")
     private AccessDataEntity accessData;
 }

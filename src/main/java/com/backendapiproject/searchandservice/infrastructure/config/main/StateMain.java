@@ -6,7 +6,6 @@ import com.backendapiproject.searchandservice.application.usecaseImpl.DeleteStat
 import com.backendapiproject.searchandservice.application.usecaseImpl.GetStateByIdUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.ListStateUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.UpdateStateUseCaseImpl;
-import com.backendapiproject.searchandservice.usecase.CreateCountryUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateStateUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteStateByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCountryByIdUseCase;
@@ -17,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class StateConfig {
+public class StateMain {
 
     @Bean
     public CreateStateUseCase createStateUseCase(StateGateway StateGateway, GetCountryByIdUseCase getCountryByIdUseCase){

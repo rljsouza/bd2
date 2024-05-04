@@ -11,11 +11,12 @@ public class Customer {
     private Address address;
     private String phone;
     private String email;
+    private AccessData accessData;
 
     public Customer() {
     }
 
-    public Customer(Long id, String name, String gender, String nationality, String CPF, String RG, Address address, String phone, String email) {
+    public Customer(Long id, String name, String gender, String nationality, String CPF, String RG, Address address, String phone, String email, AccessData accessData) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -25,6 +26,7 @@ public class Customer {
         this.address = address;
         this.phone = phone;
         this.email = email;
+        this.accessData = accessData;
     }
 
     public Long getId() {
@@ -97,5 +99,13 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public AccessData getAccessData() {
+        return accessData;
+    }
+
+    public void setAccessData(AccessData accessData) {
+        this.accessData = accessData;
     }
 }

@@ -1,5 +1,8 @@
 package com.backendapiproject.searchandservice.core.domain;
 
+import com.backendapiproject.searchandservice.core.domain.enums.RoleType;
+
+import java.util.HashSet;
 import java.util.Set;
 
 public class AccessData {
@@ -7,7 +10,7 @@ public class AccessData {
     private Long id;
     private String username;
     private String password;
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 
     public AccessData() {
@@ -52,4 +55,12 @@ public class AccessData {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public void setRolesProfessional(){
+        this.roles.add(new Role(RoleType.ROLE_PROFESSIONAL));
+    }
+    public void setRolesCostumer(){
+        this.roles.add(new Role(RoleType.ROLE_USER));
+    }
+
 }

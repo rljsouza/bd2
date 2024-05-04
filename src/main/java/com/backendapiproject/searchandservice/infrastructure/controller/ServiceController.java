@@ -1,11 +1,13 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ServiceMapper;
 import com.backendapiproject.searchandservice.usecase.DeleteServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateServiceUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +38,14 @@ public class ServiceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Service> updateService(@PathVariable Long id, @RequestBody ServiceRequest request) {
+    @Authorize(value = "ROLE_PROFESSIONAL")
+    public ResponseEntity<Service> updateService(@PathVariable Long id,@Valid @RequestBody ServiceRequest request) {
         var updatedService = updateServiceUseCase.execute(mapper.toService(request), id);
         return new ResponseEntity<>(updatedService, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Authorize(value = "ROLE_PROFESSIONAL")
     public ResponseEntity<Void> deleteServiceById(@PathVariable Long id) {
         deleteServiceByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

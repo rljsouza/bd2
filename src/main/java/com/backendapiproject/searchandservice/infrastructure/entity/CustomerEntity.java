@@ -51,7 +51,8 @@ public class CustomerEntity {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "access_data_id")
     private AccessDataEntity accessData;
+
 }

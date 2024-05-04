@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.City;
+import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CityRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CityMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
@@ -36,6 +37,7 @@ public class CityController {
     private final CityMapper mapper;
 
     @PostMapping
+    @Authorize(value = "ROLE_ADMIN")
     public ResponseEntity<City> saveCity(@RequestBody CityRequest request) {
         var savedCity = createCityUseCase.execute(mapper.toCity(request));
         return new ResponseEntity<>(savedCity, HttpStatus.CREATED);
@@ -54,12 +56,14 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
+    @Authorize(value = "ROLE_ADMIN")
     public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody CityRequest request) {
         var updatedCity = updateCityUseCase.execute(mapper.toCity(request), id);
         return new ResponseEntity<>(updatedCity, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Authorize(value = "ROLE_ADMIN")
     public ResponseEntity<Void> deleteCityById(@PathVariable Long id) {
         deleteCityByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

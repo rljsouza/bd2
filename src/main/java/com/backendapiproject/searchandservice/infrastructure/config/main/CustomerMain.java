@@ -10,6 +10,7 @@ import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateCustomerUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCustomerByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCustomerByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetRoleByRoleType;
 import com.backendapiproject.searchandservice.usecase.ListCustomersUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateCustomerUseCase;
@@ -17,11 +18,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CustomerConfig {
+public class CustomerMain {
 
     @Bean
-    public CreateCustomerUseCase createCustomerUseCase(CustomerGateway customerGateway, CreateAddressUseCase createAddressUseCase){
-        return new CreateCustomerUseCaseImpl(customerGateway, createAddressUseCase);
+    public CreateCustomerUseCase createCustomerUseCase(CustomerGateway customerGateway, CreateAddressUseCase createAddressUseCase, GetRoleByRoleType getRoleByRoleType){
+        return new CreateCustomerUseCaseImpl(customerGateway, createAddressUseCase, getRoleByRoleType);
     }
     @Bean
     public GetCustomerByIdUseCase getCustomerByIdUseCase(CustomerGateway customerGateway){

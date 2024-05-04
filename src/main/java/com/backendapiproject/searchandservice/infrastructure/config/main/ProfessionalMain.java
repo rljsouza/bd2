@@ -14,6 +14,7 @@ import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateProfessionalUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetRoleByRoleType;
 import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
@@ -21,11 +22,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ProfessionalConfig {
+public class ProfessionalMain {
 
     @Bean
-    public CreateProfessionalUseCase createProfessionalUseCase(ProfessionalGateway professionalGateway, CreateAddressUseCase createAddressUseCase){
-        return new CreateProfessionalUseCaseImpl(professionalGateway, createAddressUseCase);
+    public CreateProfessionalUseCase createProfessionalUseCase(ProfessionalGateway professionalGateway, CreateAddressUseCase createAddressUseCase, GetRoleByRoleType getRoleByRoleType){
+        return new CreateProfessionalUseCaseImpl(professionalGateway, createAddressUseCase, getRoleByRoleType);
     }
 
     @Bean

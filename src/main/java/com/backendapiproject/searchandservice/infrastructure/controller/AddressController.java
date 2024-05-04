@@ -1,12 +1,14 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Address;
+import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.AddressRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.AddressMapper;
 import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteAddressByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetAddressByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateAddressUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,8 @@ public class AddressController {
     private final AddressMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Address> saveAddress(@RequestBody AddressRequest request) {
+    @Authorize(value = "ROLE_ADMIN")
+    public ResponseEntity<Address> saveAddress(@RequestBody @Valid AddressRequest request) {
         var savedAddress = createAddressUseCase.execute(mapper.requestToAddress(request));
         return new ResponseEntity<Address>(savedAddress, HttpStatus.CREATED);
     }
@@ -43,12 +46,14 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody AddressRequest request) {
+    @Authorize(value = "ROLE_ADMIN")
+    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @Valid @RequestBody AddressRequest request) {
         Address updatedAddress = updateAddressUseCase.execute(mapper.requestToAddress(request), id);
         return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Authorize(value = "ROLE_ADMIN")
     public ResponseEntity<Void> deleteAddressById(@PathVariable Long id) {
         deleteAddressByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -2,6 +2,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Professional;
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ProfessionalMapper;
 import com.backendapiproject.searchandservice.usecase.AddServiceUseCase;
@@ -11,6 +12,7 @@ import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,7 @@ public class ProfessionalController {
 
 
     @PostMapping
-    public ResponseEntity<Professional> saveProfessional(@RequestBody ProfessionalRequest request) {
+    public ResponseEntity<Professional> saveProfessional(@RequestBody @Valid ProfessionalRequest request) {
         var savedProfessional = createProfessionalUseCase.execute(mapper.toProfessional(request));
         return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
     }
@@ -53,12 +55,14 @@ public class ProfessionalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Professional> updateProfessional(@PathVariable Long id, @RequestBody ProfessionalRequest request) {
+    @Authorize(value = "ROLE_PROFESSIONAL")
+    public ResponseEntity<Professional> updateProfessional(@PathVariable Long id, @Valid @RequestBody ProfessionalRequest request) {
         var updatedProfessional = updateProfessionalUseCase.execute(mapper.toProfessional(request), id);
         return new ResponseEntity<>(updatedProfessional, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Authorize(value = "ROLE_PROFESSIONAL")
     public ResponseEntity<Void> deleteProfessionalById(@PathVariable Long id) {
         deleteProfessionalByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -70,6 +74,7 @@ public class ProfessionalController {
         return new ResponseEntity<>(professionals, HttpStatus.OK);
     }
     @PostMapping("/{professionalId}/service")
+    @Authorize(value = "ROLE_PROFESSIONAL")
     public ResponseEntity<Professional> saveService(@PathVariable Long professionalId, @RequestBody Service service) {
         var professional = addServiceUseCase.execute(service, professionalId);
         return new ResponseEntity<>(professional, HttpStatus.CREATED);

@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Country;
+import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CountryRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CountryMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCountryUseCase;
@@ -8,6 +9,7 @@ import com.backendapiproject.searchandservice.usecase.DeleteCountryByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCountryByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.ListCountryUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateCountryUseCase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,8 @@ public class CountryController {
     private final CountryMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Country> saveCountry(@RequestBody CountryRequest request) {
+    @Authorize(value = "ROLE_ADMIN")
+    public ResponseEntity<Country> saveCountry(@RequestBody @Valid CountryRequest request) {
         var savedCountry = createCountryUseCase.execute(mapper.toCountry(request));
         return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
     }
@@ -54,12 +57,14 @@ public class CountryController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody CountryRequest request) {
+    @Authorize(value = "ROLE_ADMIN")
+    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @Valid @RequestBody CountryRequest request) {
         var updatedCountry = updateCountryUseCase.execute(mapper.toCountry(request), id);
         return new ResponseEntity<>(updatedCountry, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @Authorize(value = "ROLE_ADMIN")
     public ResponseEntity<Void> deleteCountryById(@PathVariable Long id) {
         deleteCountryByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
