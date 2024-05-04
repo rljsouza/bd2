@@ -3,20 +3,20 @@ package com.backendapiproject.searchandservice.core.domain;
 import com.backendapiproject.searchandservice.core.domain.enums.AppointmentStatus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Appointment {
     private Long id;
     private Service service;
     private Customer customer;
     private LocalDate date;
-    private LocalDateTime time;
+    private LocalTime time;
     private AppointmentStatus status;
 
     public Appointment() {
     }
 
-    public Appointment(Long id, Service service, Customer customer, LocalDate date, LocalDateTime time, AppointmentStatus status) {
+    public Appointment(Long id, Service service, Customer customer, LocalDate date, LocalTime time, AppointmentStatus status) {
         this.id = id;
         this.service = service;
         this.customer = customer;
@@ -57,11 +57,11 @@ public class Appointment {
         this.date = date;
     }
 
-    public LocalDateTime getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 

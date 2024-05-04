@@ -6,6 +6,7 @@ import com.backendapiproject.searchandservice.infrastructure.mapper.CityMapper;
 import com.backendapiproject.searchandservice.infrastructure.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class CityGatewayImpl implements CityGateway {
     private final CityRepository repository;
     private final CityMapper mapper;
 
+    @Transactional
     @Override
     public City save(City city) {
         var cityEntity =  repository.save(mapper.toCityEntity(city));
@@ -29,6 +31,7 @@ public class CityGatewayImpl implements CityGateway {
         repository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public City update(City city) {
         var cityEntity =  repository.save(mapper.toCityEntity(city));

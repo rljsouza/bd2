@@ -44,19 +44,4 @@ public class ServiceController {
         return new ResponseEntity<>(updatedService, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    @Authorize(value = "ROLE_PROFESSIONAL")
-    public ResponseEntity<Void> deleteServiceById(@PathVariable Long id) {
-        deleteServiceByIdUseCase.execute(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    /*
-    @GetMapping
-    public ResponseEntity<List<Service>> getAllServices() {
-        List<Service> services = listServiceUseCase.execute();
-        return new ResponseEntity<>(services, HttpStatus.OK);
-    }
-
-     */
 }

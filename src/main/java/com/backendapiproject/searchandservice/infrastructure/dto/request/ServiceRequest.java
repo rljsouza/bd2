@@ -29,6 +29,7 @@ public class ServiceRequest {
     @NotNull
     private ServiceStatus status;
     private List<String> images;
+    @NotNull
     private List<BusinessHoursRequest> businessHours;
 
 }

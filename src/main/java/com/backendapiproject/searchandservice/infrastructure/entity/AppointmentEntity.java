@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,18 +27,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "tb_appointment")
 @Entity
-public class AppointmentEntity {
+public class AppointmentEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "service_id")
+    @JoinColumn(name = "service_id", referencedColumnName = "id")
     private ServiceEntity service;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private CustomerEntity customer;
 
     @Column(name = "date")

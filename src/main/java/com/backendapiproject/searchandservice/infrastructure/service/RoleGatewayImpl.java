@@ -15,7 +15,7 @@ import java.util.Optional;
 public class RoleGatewayImpl implements RoleGateway {
 
     private final RoleRepository roleRepository;
-    private  final RoleMapper mapper;
+    private final RoleMapper mapper;
 
     @Override
     public Optional<Role> getRoleByRoleType(String roleType) {

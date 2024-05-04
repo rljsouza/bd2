@@ -1,26 +1,28 @@
 package com.backendapiproject.searchandservice.core.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class BusinessHours {
 
     private Long id;
-    private LocalDateTime openingTime;
-    private LocalDateTime closingTime;
-    private List<Day> day;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
+    private List<Day> days;
     private List<LocalDate> exceptDates;
+    private Service service;
 
-    public BusinessHours() {
-    }
-
-    public BusinessHours(Long id, LocalDateTime openingTime, LocalDateTime closingTime, List<Day> day, List<LocalDate> exceptDates) {
+    public BusinessHours(Long id, LocalTime openingTime, LocalTime closingTime, List<Day> days, List<LocalDate> exceptDates, Service service) {
         this.id = id;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
-        this.day = day;
+        this.days = days;
         this.exceptDates = exceptDates;
+        this.service = service;
+    }
+
+    public BusinessHours() {
     }
 
     public Long getId() {
@@ -31,35 +33,43 @@ public class BusinessHours {
         this.id = id;
     }
 
-    public LocalDateTime getOpeningTime() {
+    public LocalTime getOpeningTime() {
         return openingTime;
     }
 
-    public void setOpeningTime(LocalDateTime openingTime) {
+    public void setOpeningTime(LocalTime openingTime) {
         this.openingTime = openingTime;
     }
 
-    public LocalDateTime getClosingTime() {
+    public LocalTime getClosingTime() {
         return closingTime;
     }
 
-    public void setClosingTime(LocalDateTime closingTime) {
+    public void setClosingTime(LocalTime closingTime) {
         this.closingTime = closingTime;
     }
 
-    public List<Day> getDay() {
-        return day;
+    public List<Day> getDays() {
+        return days;
     }
 
-    public void setDay(List<Day> day) {
-        this.day = day;
+    public void setDays(List<Day> days) {
+        this.days = days;
     }
 
     public List<LocalDate> getExceptDates() {
         return exceptDates;
     }
 
-    public void setExceptDate(List<LocalDate> exceptDates) {
+    public void setExceptDates(List<LocalDate> exceptDates) {
         this.exceptDates = exceptDates;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 }

@@ -1,25 +1,25 @@
 package com.backendapiproject.searchandservice.infrastructure.dto.request;
 
-import com.backendapiproject.searchandservice.core.domain.enums.AppointmentStatus;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentRequest {
 
+    @NotNull
     private BasicRequest service;
+    @NotNull
     private BasicRequest customer;
+    @NotNull
     private LocalDate date;
-    private LocalDateTime time;
-    private AppointmentStatus status;
+    @NotNull
+    private LocalTime time;
 
 }

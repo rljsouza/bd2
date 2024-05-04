@@ -7,6 +7,7 @@ import com.backendapiproject.searchandservice.infrastructure.repository.Customer
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class CustomerGatewayImpl implements CustomerGateway {
     private final CustomerMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public Customer save(Customer customer) {
         var password = customer.getAccessData().getPassword();
@@ -32,6 +34,7 @@ public class CustomerGatewayImpl implements CustomerGateway {
         repository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Customer update(Customer customer) {
         var customerEntity =  repository.save(mapper.toCustomerEntity(customer));

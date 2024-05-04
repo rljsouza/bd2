@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "tb_review")
 @Entity
-public class ReviewEntity {
+public class ReviewEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

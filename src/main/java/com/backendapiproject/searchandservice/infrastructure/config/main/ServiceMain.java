@@ -5,6 +5,7 @@ import com.backendapiproject.searchandservice.application.usecaseImpl.DeleteServ
 import com.backendapiproject.searchandservice.application.usecaseImpl.GetServiceByIdUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.UpdateServiceUseCaseImpl;
 import com.backendapiproject.searchandservice.usecase.DeleteServiceByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateServiceUseCase;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +20,8 @@ public class ServiceMain {
     }
 
     @Bean
-    public DeleteServiceByIdUseCase deleteServiceByIdUseCase(ServiceGateway serviceGateway, GetServiceByIdUseCase getServiceByIdUseCase){
-        return new DeleteServiceUseCaseImpl(serviceGateway, getServiceByIdUseCase);
+    public DeleteServiceByIdUseCase deleteServiceByIdUseCase(ServiceGateway serviceGateway, GetServiceByIdUseCase getServiceByIdUseCase, GetProfessionalByIdUseCase getProfessionalByIdUseCase){
+        return new DeleteServiceUseCaseImpl(serviceGateway, getServiceByIdUseCase, getProfessionalByIdUseCase);
     }
 
     @Bean

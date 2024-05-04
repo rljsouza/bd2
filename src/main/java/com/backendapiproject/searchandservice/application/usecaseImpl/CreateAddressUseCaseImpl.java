@@ -3,7 +3,6 @@ package com.backendapiproject.searchandservice.application.usecaseImpl;
 import com.backendapiproject.searchandservice.application.gateway.AddressGateway;
 import com.backendapiproject.searchandservice.core.domain.Address;
 import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
-import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCityByIdUseCase;
 
 public class CreateAddressUseCaseImpl implements CreateAddressUseCase{

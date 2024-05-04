@@ -6,6 +6,7 @@ import com.backendapiproject.searchandservice.infrastructure.mapper.CountryMappe
 import com.backendapiproject.searchandservice.infrastructure.repository.CountryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class CountryGatewayImpl implements CountryGateway {
     private final CountryRepository repository;
     private final CountryMapper mapper;
 
+    @Transactional
     @Override
     public Country save(Country country) {
         var countryEntity = repository.save(mapper.toCountryEntity(country));
@@ -29,6 +31,7 @@ public class CountryGatewayImpl implements CountryGateway {
         repository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Country update(Country country) {
         var countryEntity = repository.save(mapper.toCountryEntity(country));

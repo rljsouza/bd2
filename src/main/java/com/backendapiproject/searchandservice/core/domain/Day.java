@@ -1,7 +1,9 @@
 package com.backendapiproject.searchandservice.core.domain;
 
 import com.backendapiproject.searchandservice.core.domain.enums.DayOfWeek;
+import lombok.Data;
 
+@Data
 public class Day {
 
     private Long id;
@@ -12,7 +14,14 @@ public class Day {
         this.name = name;
     }
 
+    public Day(DayOfWeek name) {
+        this.name = name;
+    }
+
     public Day() {
+    }
+
+    public Day(com.backendapiproject.searchandservice.infrastructure.dto.enums.DayOfWeek dayOfWeek) {
     }
 
     public Long getId() {

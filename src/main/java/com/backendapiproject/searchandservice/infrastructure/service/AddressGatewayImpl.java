@@ -6,6 +6,7 @@ import com.backendapiproject.searchandservice.infrastructure.mapper.AddressMappe
 import com.backendapiproject.searchandservice.infrastructure.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ public class AddressGatewayImpl implements AddressGateway {
     private final AddressRepository repository;
     private final AddressMapper mapper;
 
+    @Transactional
     @Override
     public Address save(Address address) {
         var salvedAddress = repository.save(mapper.toAddressEntity(address));
@@ -28,6 +30,7 @@ public class AddressGatewayImpl implements AddressGateway {
         repository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Address update(Address address) {
         var addressEntity = repository.save(mapper.toAddressEntity(address));

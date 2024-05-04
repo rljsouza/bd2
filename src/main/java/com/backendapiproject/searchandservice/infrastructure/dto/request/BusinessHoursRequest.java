@@ -1,23 +1,23 @@
 package com.backendapiproject.searchandservice.infrastructure.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
-@Getter
-@Setter
+@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusinessHoursRequest {
 
-    private LocalDateTime openingTime;
-    private LocalDateTime closingTime;
-    private List<DayRequest> day;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
+    private List<DayRequest> days;
     private List<LocalDate> exceptDates;
 
 }

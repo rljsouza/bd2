@@ -3,10 +3,12 @@ package com.backendapiproject.searchandservice.infrastructure.service;
 import com.backendapiproject.searchandservice.application.gateway.ProfessionalGateway;
 import com.backendapiproject.searchandservice.core.domain.Professional;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ProfessionalMapper;
+import com.backendapiproject.searchandservice.infrastructure.mapper.ServiceMapper;
 import com.backendapiproject.searchandservice.infrastructure.repository.ProfessionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +21,9 @@ public class ProfessionalGatewayImpl implements ProfessionalGateway {
     private final ProfessionalRepository repository;
     private final ProfessionalMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final ServiceMapper serviceMapper;
 
+    @Transactional
     @Override
     public Professional save(Professional professional) {
         var password = professional.getAccessData().getPassword();
@@ -33,6 +37,7 @@ public class ProfessionalGatewayImpl implements ProfessionalGateway {
         repository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public Professional update(Professional professional) {
         var professionalEntity = repository.save(mapper.toProfessionalEntity(professional));
@@ -49,4 +54,5 @@ public class ProfessionalGatewayImpl implements ProfessionalGateway {
     public List<Professional> findAll() {
         return mapper.toProfessional(repository.findAll());
     }
+
 }

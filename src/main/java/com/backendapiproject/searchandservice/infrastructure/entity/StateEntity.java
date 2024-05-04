@@ -13,12 +13,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "tb_state")
 @Entity
-public class StateEntity {
+public class StateEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

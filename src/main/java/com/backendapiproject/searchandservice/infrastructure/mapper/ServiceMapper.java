@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.infrastructure.mapper;
 
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.DayRequest;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
 import com.backendapiproject.searchandservice.infrastructure.entity.ServiceEntity;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class ServiceMapper {
 
     private final ModelMapper mapper;
+    private final BusinessHoursMapper businessHoursMapper;
 
     public ServiceEntity toServiceEntity(Service service){
         return mapper.map(service, ServiceEntity.class);
@@ -29,7 +31,10 @@ public class ServiceMapper {
     }
 
     public Service toService(ServiceRequest request){
-        return mapper.map(request,  Service.class);
+        //var businessHours = businessHoursMapper.businessHours(request.getBusinessHours());
+        var service =  mapper.map(request,  Service.class);
+     //   service.setBusinessHours(businessHours);
+        return service;
     }
 
 

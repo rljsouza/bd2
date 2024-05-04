@@ -7,14 +7,17 @@ import com.backendapiproject.searchandservice.application.usecaseImpl.AddService
 import com.backendapiproject.searchandservice.application.usecaseImpl.CreateProfessionalUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.DeleteProfessionalByIdUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.GetProfessionalByIdUseCaseImpl;
+import com.backendapiproject.searchandservice.application.usecaseImpl.GetServiceByProfessionalIdUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.ListProfessionalsUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.UpdateProfessionalUseCaseImpl;
 import com.backendapiproject.searchandservice.usecase.AddServiceUseCase;
+import com.backendapiproject.searchandservice.usecase.BusinessHoursUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateProfessionalUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetRoleByRoleType;
+import com.backendapiproject.searchandservice.usecase.GetServiceByProfessionalIdUseCase;
 import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
@@ -49,7 +52,12 @@ public class ProfessionalMain {
         return new ListProfessionalsUseCaseImpl(professionalGateway);
     }
     @Bean
-    public AddServiceUseCase addServiceUseCase(ServiceGateway serviceGateway, GetProfessionalByIdUseCase getProfessionalById, UpdateProfessionalUseCase updateProfessionalUseCase){
-        return new AddServiceUseCaseImpl(serviceGateway, getProfessionalById, updateProfessionalUseCase);
+    public AddServiceUseCase addServiceUseCase(ServiceGateway serviceGateway, GetProfessionalByIdUseCase getProfessionalById, UpdateProfessionalUseCase updateProfessionalUseCase, BusinessHoursUseCase businessHoursUseCase){
+        return new AddServiceUseCaseImpl(serviceGateway, getProfessionalById, updateProfessionalUseCase, businessHoursUseCase);
+    }
+
+    @Bean
+    public GetServiceByProfessionalIdUseCase getServiceByProfessionalIdUseCase(ProfessionalGateway professionalGateway, GetProfessionalByIdUseCase getProfessionalByIdUseCase){
+         return new GetServiceByProfessionalIdUseCaseImpl(professionalGateway, getProfessionalByIdUseCase );
     }
 }

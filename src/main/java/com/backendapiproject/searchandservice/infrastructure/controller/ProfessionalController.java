@@ -4,12 +4,16 @@ import com.backendapiproject.searchandservice.core.domain.Professional;
 import com.backendapiproject.searchandservice.core.domain.Service;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ProfessionalMapper;
+import com.backendapiproject.searchandservice.infrastructure.mapper.ServiceMapper;
 import com.backendapiproject.searchandservice.usecase.AddServiceUseCase;
 import com.backendapiproject.searchandservice.usecase.CreateProfessionalUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteProfessionalByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.DeleteServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetServiceByProfessionalIdUseCase;
 import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
 import jakarta.validation.Valid;
@@ -39,7 +43,9 @@ public class ProfessionalController {
     private final ListProfessionalsUseCase listProfessionalsUseCase;
     private final AddServiceUseCase addServiceUseCase;
     private final ProfessionalMapper mapper;
-    private final GetServiceByIdUseCase getServiceByIdUseCase;
+    private final ServiceMapper serviceMapper;
+    private final GetServiceByProfessionalIdUseCase getServiceByProfessionalIdUseCase;
+    private final DeleteServiceByIdUseCase deleteServiceByIdUseCase;
 
 
     @PostMapping
@@ -75,8 +81,8 @@ public class ProfessionalController {
     }
     @PostMapping("/{professionalId}/service")
     @Authorize(value = "ROLE_PROFESSIONAL")
-    public ResponseEntity<Professional> saveService(@PathVariable Long professionalId, @RequestBody Service service) {
-        var professional = addServiceUseCase.execute(service, professionalId);
+    public ResponseEntity<Professional> saveService(@PathVariable Long professionalId, @RequestBody @Valid ServiceRequest request) {
+        var professional = addServiceUseCase.execute(serviceMapper.toService(request), professionalId);
         return new ResponseEntity<>(professional, HttpStatus.CREATED);
     }
 
@@ -86,12 +92,20 @@ public class ProfessionalController {
         var  service = getServiceByIdUseCase.execute(serviceId);
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
-
-    @GetMapping("/{professionalId}/service}")
-    public ResponseEntity<Service> getServiceAll(@PathVariable Long professionalId) {
-        var  service = getServiceByIdUseCase.execute(serviceId);
+*/
+    @GetMapping("/{professionalId}/service")
+    public ResponseEntity<List<Service>> getServiceAll(@PathVariable Long professionalId) {
+        var  service = getServiceByProfessionalIdUseCase.execute(professionalId);
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
-       */
+
+
+    @DeleteMapping("/{professionalId}/service/{serviceId}")
+    @Authorize(value = "ROLE_PROFESSIONAL")
+    public ResponseEntity<Void> deleteServiceById(@PathVariable Long professionalId, @PathVariable Long serviceId) {
+        deleteServiceByIdUseCase.execute(professionalId, serviceId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }
