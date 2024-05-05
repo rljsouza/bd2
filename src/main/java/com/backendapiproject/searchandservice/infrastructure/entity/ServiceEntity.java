@@ -37,7 +37,7 @@ public class ServiceEntity {
     @Column(name = "duration")
     private Integer duration;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "service_service_type",
             joinColumns = @JoinColumn(name = "service_id"),

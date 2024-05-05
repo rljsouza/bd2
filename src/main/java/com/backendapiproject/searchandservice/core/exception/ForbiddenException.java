@@ -20,7 +20,4 @@ public class ForbiddenException extends BaseFullException {
         super(HttpStatus.FORBIDDEN, message, cause);
     }
 
-    public ForbiddenException(Throwable cause) {
-        super(HttpStatus.FORBIDDEN, cause);
-    }
 }

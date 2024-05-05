@@ -37,6 +37,7 @@ public class ProfessionalEntity {
     private String name;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "address_id")
     private AddressEntity address;
 
     @Column(name = "cnpj")

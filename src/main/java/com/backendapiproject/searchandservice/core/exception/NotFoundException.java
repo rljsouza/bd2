@@ -21,7 +21,4 @@ public class NotFoundException extends BaseFullException {
         super(HttpStatus.NOT_FOUND, message, cause);
     }
 
-    public NotFoundException(Throwable cause) {
-        super(HttpStatus.NOT_FOUND, cause);
-    }
 }

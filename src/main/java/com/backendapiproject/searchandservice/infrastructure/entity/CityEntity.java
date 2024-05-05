@@ -3,6 +3,7 @@ package com.backendapiproject.searchandservice.infrastructure.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class CityEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -30,14 +31,10 @@ public class CityEntity {
     @Column(name = "abbreviation")
     private String abbreviation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "state_id")
     private StateEntity state;
 
     @Column(name = "area_code")
     private String areaCode;
-
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private CountryEntity country;
 }

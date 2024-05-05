@@ -21,7 +21,4 @@ public class UnauthorizedException extends BaseFullException {
         super(HttpStatus.UNAUTHORIZED, message, cause);
     }
 
-    public UnauthorizedException(Throwable cause) {
-        super(HttpStatus.UNAUTHORIZED, cause);
-    }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class CountryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -25,8 +25,8 @@ public class CountryEntity {
     private String abbreviation;
 
     @Column(name = "country_code")
-    private String countryCode;
+    private Integer countryCode;
 
-    @OneToMany(mappedBy = "country")
-    private List<CityEntity> cities;
+    @Column(name = "name_pt")
+    private String namePt;
 }

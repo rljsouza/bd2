@@ -4,23 +4,31 @@ public class Country {
 
     private Long id;
     private String name;
+    private String namePt;
     private String abbreviation;
-    private String countryCode;
-
+    private Integer countryCode;
 
     public Country() {
     }
 
-    public Country(Long id, String name, String abbreviation, String countryCode) {
+    public Country(Long id, String name, String namePt, String abbreviation, Integer countryCode) {
         this.id = id;
         this.name = name;
+        this.namePt = namePt;
         this.abbreviation = abbreviation;
         this.countryCode = countryCode;
     }
 
-
     public Long getId() {
         return id;
+    }
+
+    public String getNamePt() {
+        return namePt;
+    }
+
+    public void setNamePt(String namePt) {
+        this.namePt = namePt;
     }
 
     public void setId(Long id) {
@@ -43,11 +51,11 @@ public class Country {
         this.abbreviation = abbreviation;
     }
 
-    public String getCountryCode() {
+    public Integer getCountryCode() {
         return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
+    public void setCountryCode(Integer countryCode) {
         this.countryCode = countryCode;
     }
 }

@@ -20,7 +20,5 @@ public class BadRequestException extends BaseFullException {
         super(HttpStatus.BAD_REQUEST, message, cause);
     }
 
-    public BadRequestException(Throwable cause) {
-        super(HttpStatus.BAD_REQUEST, cause);
-    }
+
 }

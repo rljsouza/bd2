@@ -41,7 +41,7 @@ public class CustomerEntity {
     @Column(name = "rg")
     private String rg;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "address_id")
     private AddressEntity address;
 
