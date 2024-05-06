@@ -3,6 +3,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 import com.backendapiproject.searchandservice.core.domain.Customer;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CustomerRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.CustomerResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CustomerMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCustomerUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCustomerByIdUseCase;
@@ -44,16 +45,16 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Long id) {
         var customer =  getCustomerByIdUseCase.execute(id);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCustomerResponse(customer), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     @Authorize(value = "ROLE_USER")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerRequest request) {
+    public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerRequest request) {
         var updatedCustomer = updateCustomerUseCase.execute(mapper.toCustomer(request), id);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCustomerResponse(updatedCustomer), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -64,8 +65,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
         var customers = listCustomersUseCase.execute();
-        return new ResponseEntity<>(customers, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCustomerResponse(customers), HttpStatus.OK);
     }
 }

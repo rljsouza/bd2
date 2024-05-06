@@ -2,6 +2,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Address;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.AddressRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.AddressResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.AddressMapper;
 import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteAddressByIdUseCase;
@@ -32,21 +33,21 @@ public class AddressController {
     private final AddressMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Address> saveAddress(@RequestBody @Valid AddressRequest request) {
+    public ResponseEntity<AddressResponse> saveAddress(@RequestBody @Valid AddressRequest request) {
         var savedAddress = createAddressUseCase.execute(mapper.requestToAddress(request));
-        return new ResponseEntity<Address>(savedAddress, HttpStatus.CREATED);
+        return new ResponseEntity<AddressResponse>(mapper.toAddressResponse(savedAddress), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Long id) {
+    public ResponseEntity<AddressResponse> getAddressById(@PathVariable Long id) {
         var address = getAddressByIdUseCase.execute(id);
-        return new ResponseEntity<Address>(address, HttpStatus.OK);
+        return new ResponseEntity<AddressResponse>(mapper.toAddressResponse(address), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @Valid @RequestBody AddressRequest request) {
+    public ResponseEntity<AddressResponse> updateAddress(@PathVariable Long id, @Valid @RequestBody AddressRequest request) {
         Address updatedAddress = updateAddressUseCase.execute(mapper.requestToAddress(request), id);
-        return new ResponseEntity<>(updatedAddress, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toAddressResponse(updatedAddress), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

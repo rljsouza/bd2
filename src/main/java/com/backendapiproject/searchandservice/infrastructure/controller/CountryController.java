@@ -3,6 +3,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 import com.backendapiproject.searchandservice.core.domain.Country;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CountryRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.CountryResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CountryMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCountryUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCountryByIdUseCase;
@@ -39,28 +40,28 @@ public class CountryController {
 
     @PostMapping
     @Authorize(value = "ROLE_ADMIN")
-    public ResponseEntity<Country> saveCountry(@RequestBody @Valid CountryRequest request) {
+    public ResponseEntity<CountryResponse> saveCountry(@RequestBody @Valid CountryRequest request) {
         var savedCountry = createCountryUseCase.execute(mapper.toCountry(request));
-        return new ResponseEntity<>(savedCountry, HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toCountryResponse(savedCountry), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Country> getCountryById(@PathVariable Long id) {
+    public ResponseEntity<CountryResponse> getCountryById(@PathVariable Long id) {
         var country = getCountryByIdUseCase.execute(id);
-        return new ResponseEntity<>(country, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCountryResponse(country), HttpStatus.OK);
     }
     @GetMapping
-    public ResponseEntity<List<Country>> listCountry() {
+    public ResponseEntity<List<CountryResponse>> listCountry() {
         var country = listCountryUseCase.execute();
-        return new ResponseEntity<>(country, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCountryResponse(country), HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
     @Authorize(value = "ROLE_ADMIN")
-    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @Valid @RequestBody CountryRequest request) {
+    public ResponseEntity<CountryResponse> updateCountry(@PathVariable Long id, @Valid @RequestBody CountryRequest request) {
         var updatedCountry = updateCountryUseCase.execute(mapper.toCountry(request), id);
-        return new ResponseEntity<>(updatedCountry, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCountryResponse(updatedCountry), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

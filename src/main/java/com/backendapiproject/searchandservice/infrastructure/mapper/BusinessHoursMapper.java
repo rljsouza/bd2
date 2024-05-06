@@ -31,10 +31,9 @@ public class BusinessHoursMapper {
        return mapper.map(business, BusinessHours.class);
 
     }
-    public List<BusinessHours> toBusinessHour (List<BusinessHoursEntity> businessHoursEntities ){
+    public List<BusinessHours> toBusinessHour(List<BusinessHoursEntity> businessHoursEntities ){
         return businessHoursEntities.stream().map(this::toBusinessHours).collect(Collectors.toList());
     }
-
 
     public List<BusinessHours> toBusinessHours (List<BusinessHoursRequest> request){
         return request.stream().map(this::toBusinessHours).collect(Collectors.toList());

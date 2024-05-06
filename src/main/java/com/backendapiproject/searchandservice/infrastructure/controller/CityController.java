@@ -3,6 +3,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 import com.backendapiproject.searchandservice.core.domain.City;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CityRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.CityResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CityMapper;
 import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCityByIdUseCase;
@@ -38,28 +39,28 @@ public class CityController {
 
     @PostMapping
     @Authorize(value = "ROLE_ADMIN")
-    public ResponseEntity<City> saveCity(@RequestBody CityRequest request) {
+    public ResponseEntity<CityResponse> saveCity(@RequestBody CityRequest request) {
         var savedCity = createCityUseCase.execute(mapper.toCity(request));
-        return new ResponseEntity<>(savedCity, HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toCityResponse(savedCity), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<City> getCityById(@PathVariable Long id) {
+    public ResponseEntity<CityResponse> getCityById(@PathVariable Long id) {
         var city = getCityByIdUseCase.execute(id);
-        return new ResponseEntity<>(city, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCityResponse(city), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<City>> listCity() {
+    public ResponseEntity<List<CityResponse>> listCity() {
         var city = listCityUseCase.execute();
-        return new ResponseEntity<>(city, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCityResponse(city), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     @Authorize(value = "ROLE_ADMIN")
-    public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody CityRequest request) {
+    public ResponseEntity<CityResponse> updateCity(@PathVariable Long id, @RequestBody CityRequest request) {
         var updatedCity = updateCityUseCase.execute(mapper.toCity(request), id);
-        return new ResponseEntity<>(updatedCity, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toCityResponse(updatedCity), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

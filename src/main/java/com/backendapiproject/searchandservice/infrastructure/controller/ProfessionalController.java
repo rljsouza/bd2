@@ -6,6 +6,8 @@ import com.backendapiproject.searchandservice.core.domain.ServiceAvailability;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.ProfessionalResponse;
+import com.backendapiproject.searchandservice.infrastructure.dto.response.ServiceResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ProfessionalMapper;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ServiceMapper;
 import com.backendapiproject.searchandservice.usecase.AddServiceUseCase;
@@ -52,22 +54,22 @@ public class ProfessionalController {
 
 
     @PostMapping
-    public ResponseEntity<Professional> saveProfessional(@RequestBody @Valid ProfessionalRequest request) {
+    public ResponseEntity<ProfessionalResponse> saveProfessional(@RequestBody @Valid ProfessionalRequest request) {
         var savedProfessional = createProfessionalUseCase.execute(mapper.toProfessional(request));
-        return new ResponseEntity<>(savedProfessional, HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toProfessionalResponse(savedProfessional), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Professional> getProfessionalById(@PathVariable Long id) {
+    public ResponseEntity<ProfessionalResponse> getProfessionalById(@PathVariable Long id) {
         var professional = getProfessionalByIdUseCase.execute(id);
-        return new ResponseEntity<>(professional, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toProfessionalResponse(professional), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     @Authorize(value = "ROLE_PROFESSIONAL")
-    public ResponseEntity<Professional> updateProfessional(@PathVariable Long id, @Valid @RequestBody ProfessionalRequest request) {
+    public ResponseEntity<ProfessionalResponse> updateProfessional(@PathVariable Long id, @Valid @RequestBody ProfessionalRequest request) {
         var updatedProfessional = updateProfessionalUseCase.execute(mapper.toProfessional(request), id);
-        return new ResponseEntity<>(updatedProfessional, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toProfessionalResponse(updatedProfessional), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -78,21 +80,21 @@ public class ProfessionalController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Professional>> getAllProfessionals() {
+    public ResponseEntity<List<ProfessionalResponse>> getAllProfessionals() {
         var professionals = listProfessionalsUseCase.execute();
-        return new ResponseEntity<>(professionals, HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toProfessionalResponse(professionals), HttpStatus.OK);
     }
     @PostMapping("/{professionalId}/service")
     @Authorize(value = "ROLE_PROFESSIONAL")
-    public ResponseEntity<Professional> saveService(@PathVariable Long professionalId, @RequestBody @Valid ServiceRequest request) {
+    public ResponseEntity<ProfessionalResponse> saveService(@PathVariable Long professionalId, @RequestBody @Valid ServiceRequest request) {
         var professional = addServiceUseCase.execute(serviceMapper.toService(request), professionalId);
-        return new ResponseEntity<>(professional, HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toProfessionalResponse(professional), HttpStatus.CREATED);
     }
 
     @GetMapping("/{professionalId}/service")
-    public ResponseEntity<List<Service>> getAllService(@PathVariable Long professionalId) {
+    public ResponseEntity<List<ServiceResponse>> getAllService(@PathVariable Long professionalId) {
         var  service = getServiceByProfessionalIdUseCase.execute(professionalId);
-        return new ResponseEntity<>(service, HttpStatus.OK);
+        return new ResponseEntity<>(serviceMapper.toServiceResponse(service), HttpStatus.OK);
     }
     @GetMapping("/{professionalId}/service/{serviceId}/available")
     public ResponseEntity<List<ServiceAvailability>> listServiceAvailable(@PathVariable Long professionalId, @PathVariable Long serviceId) {
