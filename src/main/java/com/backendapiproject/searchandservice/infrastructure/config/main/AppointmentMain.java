@@ -4,6 +4,7 @@ import com.backendapiproject.searchandservice.application.gateway.AppointmentGat
 import com.backendapiproject.searchandservice.application.usecaseImpl.AppointmentUseCaseImpl;
 import com.backendapiproject.searchandservice.usecase.AppointmentUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCustomerByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppointmentMain {
 
     @Bean
-    public AppointmentUseCase appointmentUseCase(AppointmentGateWay appointmentGateWay, GetCustomerByIdUseCase getCustomerByIdUseCase, GetServiceByIdUseCase getServiceByIdUseCase){
-        return new AppointmentUseCaseImpl(appointmentGateWay, getCustomerByIdUseCase, getServiceByIdUseCase);
+    public AppointmentUseCase appointmentUseCase(AppointmentGateWay appointmentGateWay, GetCustomerByIdUseCase getCustomerByIdUseCase, GetServiceByIdUseCase getServiceByIdUseCase, GetProfessionalByIdUseCase getProfessionalByIdUseCase){
+        return new AppointmentUseCaseImpl(appointmentGateWay, getCustomerByIdUseCase, getServiceByIdUseCase, getProfessionalByIdUseCase);
     }
 }
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface ProfessionalRepository extends JpaRepository<ProfessionalEntity, Long> {
+
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM professional_service WHERE service_id = :serviceId", nativeQuery = true)

@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.application.gateway;
 
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.usecase.ListServiceAvailableUseCase;
 
 import java.util.List;
 import java.util.Optional;

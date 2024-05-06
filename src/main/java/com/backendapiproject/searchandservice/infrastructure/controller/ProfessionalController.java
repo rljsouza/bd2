@@ -2,6 +2,7 @@ package com.backendapiproject.searchandservice.infrastructure.controller;
 
 import com.backendapiproject.searchandservice.core.domain.Professional;
 import com.backendapiproject.searchandservice.core.domain.Service;
+import com.backendapiproject.searchandservice.core.domain.ServiceAvailability;
 import com.backendapiproject.searchandservice.infrastructure.annotation.Authorize;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ProfessionalRequest;
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
@@ -15,6 +16,7 @@ import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByProfessionalIdUseCase;
 import com.backendapiproject.searchandservice.usecase.ListProfessionalsUseCase;
+import com.backendapiproject.searchandservice.usecase.ListServiceAvailableUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateProfessionalUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,7 @@ public class ProfessionalController {
     private final ServiceMapper serviceMapper;
     private final GetServiceByProfessionalIdUseCase getServiceByProfessionalIdUseCase;
     private final DeleteServiceByIdUseCase deleteServiceByIdUseCase;
+    private final ListServiceAvailableUseCase listServiceAvailableUseCase;
 
 
     @PostMapping
@@ -86,19 +89,16 @@ public class ProfessionalController {
         return new ResponseEntity<>(professional, HttpStatus.CREATED);
     }
 
-    /*
-    @GetMapping("/{professionalId}/service/{serviceId}")
-    public ResponseEntity<Service> getServiceById(@PathVariable Long professionalId, @PathVariable Long serviceId) {
-        var  service = getServiceByIdUseCase.execute(serviceId);
-        return new ResponseEntity<>(service, HttpStatus.OK);
-    }
-*/
     @GetMapping("/{professionalId}/service")
-    public ResponseEntity<List<Service>> getServiceAll(@PathVariable Long professionalId) {
+    public ResponseEntity<List<Service>> getAllService(@PathVariable Long professionalId) {
         var  service = getServiceByProfessionalIdUseCase.execute(professionalId);
         return new ResponseEntity<>(service, HttpStatus.OK);
     }
-
+    @GetMapping("/{professionalId}/service/{serviceId}/available")
+    public ResponseEntity<List<ServiceAvailability>> listServiceAvailable(@PathVariable Long professionalId, @PathVariable Long serviceId) {
+        var  serviceAvailabilities = listServiceAvailableUseCase.execute(professionalId, serviceId);
+        return new ResponseEntity<>(serviceAvailabilities, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{professionalId}/service/{serviceId}")
     @Authorize(value = "ROLE_PROFESSIONAL")

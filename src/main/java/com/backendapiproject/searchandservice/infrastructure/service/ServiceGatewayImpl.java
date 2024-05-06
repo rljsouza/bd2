@@ -50,4 +50,5 @@ public class ServiceGatewayImpl implements ServiceGateway {
     public List<Service> findAll() {
         return mapper.toService(repository.findAll());
     }
+
 }

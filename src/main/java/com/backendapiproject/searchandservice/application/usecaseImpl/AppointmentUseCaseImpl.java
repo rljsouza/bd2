@@ -7,20 +7,24 @@ import com.backendapiproject.searchandservice.core.domain.enums.AppointmentStatu
 import com.backendapiproject.searchandservice.core.exception.NotFoundException;
 import com.backendapiproject.searchandservice.usecase.AppointmentUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCustomerByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetProfessionalByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 
+import java.util.List;
 
 public class AppointmentUseCaseImpl implements AppointmentUseCase {
 
     private final AppointmentGateWay appointmentGateWay;
     private final GetCustomerByIdUseCase getCustomerByIdUseCase;
     private final GetServiceByIdUseCase getServiceByIdUseCase;
+    private final GetProfessionalByIdUseCase  getProfessionalByIdUseCase;
 
 
-    public AppointmentUseCaseImpl(AppointmentGateWay appointmentGateWay, GetCustomerByIdUseCase getCustomerByIdUseCase, GetServiceByIdUseCase getServiceByIdUseCase) {
+    public AppointmentUseCaseImpl(AppointmentGateWay appointmentGateWay, GetCustomerByIdUseCase getCustomerByIdUseCase, GetServiceByIdUseCase getServiceByIdUseCase, GetProfessionalByIdUseCase getProfessionalByIdUseCase) {
         this.appointmentGateWay = appointmentGateWay;
         this.getCustomerByIdUseCase = getCustomerByIdUseCase;
         this.getServiceByIdUseCase = getServiceByIdUseCase;
+        this.getProfessionalByIdUseCase = getProfessionalByIdUseCase;
     }
 
     @Override
@@ -44,7 +48,7 @@ public class AppointmentUseCaseImpl implements AppointmentUseCase {
         appointment.setCustomer(customer);
         appointment.setService(service);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
-        return appointment;
+        return appointmentGateWay.create(appointment);
     }
 
     @Override
@@ -53,4 +57,17 @@ public class AppointmentUseCaseImpl implements AppointmentUseCase {
             throw new NotFoundException("Agendamento não encontrado. ID "+ id);
         });
     }
+
+    @Override
+    public List<Appointment> listCustomerAppointmentsByCustomerId(Long id) {
+        return appointmentGateWay.listCustomerAppointmentsByCustomerId(id);
+    }
+
+    @Override
+    public List<Appointment> listServiceAppointmentsUByServiceId(Long professionalId, Long serviceId) {
+        getProfessionalByIdUseCase.execute(professionalId);
+        return appointmentGateWay.listServiceAppointmentsUByServiceId(serviceId);
+    }
+
+
 }

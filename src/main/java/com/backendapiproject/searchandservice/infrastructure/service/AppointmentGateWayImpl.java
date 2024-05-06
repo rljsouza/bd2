@@ -7,6 +7,7 @@ import com.backendapiproject.searchandservice.infrastructure.repository.Appointm
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,15 @@ public class AppointmentGateWayImpl implements AppointmentGateWay {
     public Optional<Appointment> getAppointmentById(Long id) {
         var appointment = repository.findById(id);
         return appointment.map(mapper::toAppointment);
+    }
+
+    @Override
+    public List<Appointment> listCustomerAppointmentsByCustomerId(Long id) {
+        return mapper.toAppointment(repository.findAllCustomerAppointmentsByCustomerId(id));
+    }
+
+    @Override
+    public List<Appointment> listServiceAppointmentsUByServiceId(Long serviceId) {
+        return mapper.toAppointment(repository.findAllServiceAppointmentsByServiceId(serviceId));
     }
 }

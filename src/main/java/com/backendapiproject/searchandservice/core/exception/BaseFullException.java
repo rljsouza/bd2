@@ -59,7 +59,8 @@ public class BaseFullException extends RuntimeException {
                 this.description,
                 this.origin,
                 this.error,
-                this.errorDescription
+                this.errorDescription,
+                this.status
         );
     }
 
@@ -90,4 +91,6 @@ public class BaseFullException extends RuntimeException {
     public String getErrorDescription() {
         return errorDescription;
     }
+
+
 }

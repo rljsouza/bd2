@@ -18,8 +18,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+import java.time.LocalTime;
 
 
 @Data
@@ -45,9 +44,10 @@ public class AppointmentEntity implements Serializable {
     private LocalDate date;
 
     @Column(name = "time")
-    private LocalDateTime time;
+    private LocalTime time;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private AppointmentStatus status;
+
 }
