@@ -4,15 +4,18 @@ import com.backendapiproject.searchandservice.core.domain.City;
 import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCityByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCityByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.ListCityUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateCityUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/v1//api/city")
+@RequestMapping("/v1/api/city")
 @RequiredArgsConstructor
 public class CityController {
 
@@ -20,6 +23,7 @@ public class CityController {
     private final DeleteCityByIdUseCase deleteCityByIdUseCase;
     private final GetCityByIdUseCase getCityByIdUseCase;
     private final UpdateCityUseCase updateCityUseCase;
+    private final ListCityUseCase listCityUseCase;
 
     @PostMapping
     public ResponseEntity<City> saveCity(@RequestBody City city) {
@@ -30,6 +34,12 @@ public class CityController {
     @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable Long id) {
         var city = getCityByIdUseCase.execute(id);
+        return new ResponseEntity<>(city, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<City>> listCity() {
+        var city = listCityUseCase.execute();
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
 

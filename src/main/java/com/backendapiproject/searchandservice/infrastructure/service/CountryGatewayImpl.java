@@ -7,6 +7,7 @@ import com.backendapiproject.searchandservice.infrastructure.repository.CountryR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -39,5 +40,11 @@ public class CountryGatewayImpl implements CountryGateway {
     public Optional<Country> findById(Long id) {
         var countryEntity = repository.findById(id);
         return countryEntity.map(mapper::toCountry);
+    }
+
+    @Override
+    public List<Country> findAll() {
+        var countryEntities = repository.findAll();
+        return mapper.toCountry(countryEntities);
     }
 }

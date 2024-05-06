@@ -6,11 +6,10 @@ import com.backendapiproject.searchandservice.application.usecaseImpl.DeleteAddr
 import com.backendapiproject.searchandservice.application.usecaseImpl.GetAddressByIdUseCaseImpl;
 import com.backendapiproject.searchandservice.application.usecaseImpl.UpdateAddressUseCaseImpl;
 import com.backendapiproject.searchandservice.usecase.CreateAddressUseCase;
-import com.backendapiproject.searchandservice.usecase.CreateCityUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteAddressByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetAddressByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.GetCityByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateAddressUseCase;
-import com.backendapiproject.searchandservice.usecase.UpdateCityUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,16 +17,16 @@ import org.springframework.context.annotation.Configuration;
 public class AddressConfig {
 
     @Bean
-    public CreateAddressUseCase createAddressUseCase(AddressGateway addressGateway, CreateCityUseCase createCityUseCase){
-        return new CreateAddressUseCaseImpl(addressGateway, createCityUseCase);
+    public CreateAddressUseCase createAddressUseCase(AddressGateway addressGateway, GetCityByIdUseCase getCityByIdUseCase){
+        return new CreateAddressUseCaseImpl(addressGateway, getCityByIdUseCase);
     }
     @Bean
     public GetAddressByIdUseCase getAddressByIdUseCase(AddressGateway addressGateway){
         return new GetAddressByIdUseCaseImpl(addressGateway);
     }
     @Bean
-    public UpdateAddressUseCase updateAddressUseCase(AddressGateway addressGateway, GetAddressByIdUseCase getAddressByIdUseCase, UpdateCityUseCase updateCityUseCase){
-        return new UpdateAddressUseCaseImpl(addressGateway, getAddressByIdUseCase, updateCityUseCase);
+    public UpdateAddressUseCase updateAddressUseCase(AddressGateway addressGateway, GetAddressByIdUseCase getAddressByIdUseCase, GetCityByIdUseCase getCityByIdUseCase){
+        return new UpdateAddressUseCaseImpl(addressGateway, getAddressByIdUseCase, getCityByIdUseCase);
     }
 
     @Bean

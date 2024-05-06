@@ -7,6 +7,7 @@ import com.backendapiproject.searchandservice.infrastructure.repository.CityRepo
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,5 +39,11 @@ public class CityGatewayImpl implements CityGateway {
     public Optional<City> findById(Long id) {
         var cityEntity = repository.findById(id);
         return cityEntity.map(mapper::toCity);
+    }
+
+    @Override
+    public List<City> findAll() {
+        var cityEntities = repository.findAll();
+        return mapper.toCity(cityEntities);
     }
 }

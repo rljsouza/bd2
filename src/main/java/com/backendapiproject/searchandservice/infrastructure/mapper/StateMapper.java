@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Component
 public class StateMapper {
@@ -19,6 +22,12 @@ public class StateMapper {
     public State toSate(StateEntity state){
         return mapper.map(state,  State.class);
     }
+
+
+    public List<State> toSate(List<StateEntity> stateEntities){
+        return stateEntities.stream().map(this::toSate).collect(Collectors.toList());
+    }
+
 
 
 }

@@ -7,6 +7,7 @@ import com.backendapiproject.searchandservice.infrastructure.repository.StateRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,5 +39,11 @@ public class StateGatewayImpl implements StateGateway {
     public Optional<State> findById(Long id) {
         var stateEntity = repository.findById(id);
         return stateEntity.map(mapper::toSate);
+    }
+
+    @Override
+    public List<State> findAll() {
+        var stateEntity = repository.findAll();
+        return mapper.toSate(stateEntity);
     }
 }

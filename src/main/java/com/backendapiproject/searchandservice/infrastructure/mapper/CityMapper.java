@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Component
 public class CityMapper {
@@ -19,6 +22,10 @@ public class CityMapper {
     public City toCity(CityEntity city){
         return mapper.map(city,  City.class);
     }
+    public List<City> toCity(List<CityEntity> cities){
+        return cities.stream().map(this::toCity).collect(Collectors.toList());
+    }
+
 
 
 }

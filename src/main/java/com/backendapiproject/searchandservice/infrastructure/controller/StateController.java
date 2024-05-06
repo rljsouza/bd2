@@ -4,11 +4,14 @@ import com.backendapiproject.searchandservice.core.domain.State;
 import com.backendapiproject.searchandservice.usecase.CreateStateUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteStateByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetStateByIdUseCase;
+import com.backendapiproject.searchandservice.usecase.ListStateUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateStateUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -20,6 +23,7 @@ public class StateController {
     private final UpdateStateUseCase updateStateUseCase;
     private final GetStateByIdUseCase getStateByIdUseCase;
     private final DeleteStateByIdUseCase deleteStateByIdUseCase;
+    private final ListStateUseCase listStateUseCase;
 
     @PostMapping
     public ResponseEntity<State> saveState(@RequestBody State state) {
@@ -30,6 +34,12 @@ public class StateController {
     @GetMapping("/{id}")
     public ResponseEntity<State> getStateById(@PathVariable Long id) {
         var state = getStateByIdUseCase.execute(id);
+        return new ResponseEntity<>(state, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<State>> listState() {
+        var state = listStateUseCase.execute();
         return new ResponseEntity<>(state, HttpStatus.OK);
     }
 
