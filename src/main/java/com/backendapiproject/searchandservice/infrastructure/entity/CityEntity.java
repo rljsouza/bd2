@@ -36,4 +36,8 @@ public class CityEntity {
 
     @Column(name = "area_code")
     private String areaCode;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private CountryEntity country;
 }

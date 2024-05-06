@@ -37,4 +37,8 @@ public class BusinessHoursEntity {
     @ElementCollection
     @Column(name = "except_date")
     private List<LocalDate> exceptDates;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private ServiceEntity service;
 }
