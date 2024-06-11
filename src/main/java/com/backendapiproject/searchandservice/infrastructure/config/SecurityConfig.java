@@ -35,10 +35,13 @@ public class SecurityConfig {
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/public/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/v1/api/professional", "/v1/api/customer").permitAll()
-                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/authorize", "/login", "/auth/**").permitAll()
-                                .anyRequest().authenticated()
+//                                .requestMatchers("/public/**").permitAll()
+//                                .requestMatchers(HttpMethod.POST, "/v1/api/professional", "/v1/api/customer").permitAll()
+//                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/authorize", "/login", "/auth/**").permitAll()
+//                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
+
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
@@ -63,23 +66,6 @@ public class SecurityConfig {
         return provider;
     }
 
-  /*
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*"));
-        config.setAllowedMethods(Arrays.asList("*"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsFilter(source);
-    }
-
-
-   */
 
 
 }

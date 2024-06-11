@@ -1,6 +1,7 @@
 package com.backendapiproject.searchandservice.core.domain;
 
 import com.backendapiproject.searchandservice.core.domain.enums.ServiceStatus;
+import com.backendapiproject.searchandservice.infrastructure.entity.ProfessionalEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,8 +17,11 @@ public class Service {
     private List<String> images;
     private List<BusinessHours> businessHours;
     private List<Review> reviews;
+    private Professional professional;
 
-    public Service(Long id, List<String> images, BigDecimal value, ServiceStatus status, String description, Integer duration, List<ServiceType> serviceTypes, List<BusinessHours> businessHours, List<Review> reviews) {
+
+
+    public Service(Long id, List<String> images, BigDecimal value, ServiceStatus status, String description, Integer duration, List<ServiceType> serviceTypes, List<BusinessHours> businessHours, List<Review> reviews, Professional professional) {
         this.id = id;
         this.images = images;
         this.value = value;
@@ -27,10 +31,9 @@ public class Service {
         this.serviceTypes = serviceTypes;
         this.businessHours = businessHours;
         this.reviews = reviews;
+        this.professional = professional;
     }
 
-    public Service() {
-    }
 
     public Long getId() {
         return id;
@@ -102,5 +105,14 @@ public class Service {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Professional getProfessional() {
+        return professional;
+
+    }
+
+    public void setProfessional(Professional professional) {
+        this.professional = professional;
     }
 }

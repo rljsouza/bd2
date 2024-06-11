@@ -5,6 +5,7 @@ import com.backendapiproject.searchandservice.infrastructure.annotation.Authoriz
 import com.backendapiproject.searchandservice.infrastructure.dto.request.ServiceRequest;
 import com.backendapiproject.searchandservice.infrastructure.dto.response.ServiceResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.ServiceMapper;
+import com.backendapiproject.searchandservice.infrastructure.repository.ProfessionalReviewRepository;
 import com.backendapiproject.searchandservice.usecase.DeleteServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetServiceByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.UpdateServiceUseCase;
@@ -29,6 +30,8 @@ public class ServiceController {
     private final GetServiceByIdUseCase getServiceByIdUseCase;
     private final UpdateServiceUseCase updateServiceUseCase;
     private final ServiceMapper mapper;
+    private final ProfessionalReviewRepository professionalReviewRepository;
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ServiceResponse> getServiceById(@PathVariable Long id) {
@@ -37,10 +40,18 @@ public class ServiceController {
     }
 
     @PutMapping("/{id}")
-    @Authorize(value = "ROLE_PROFESSIONAL")
+    //@Authorize(value = "ROLE_PROFESSIONAL")
     public ResponseEntity<ServiceResponse> updateService(@PathVariable Long id, @Valid @RequestBody ServiceRequest request) {
         var updatedService = updateServiceUseCase.execute(mapper.toService(request), id);
         return new ResponseEntity<>(mapper.toServiceResponse(updatedService), HttpStatus.OK);
+    }
+
+    @PutMapping("/trigger/{id}")
+    //@Authorize(value = "ROLE_PROFESSIONAL")
+    public ResponseEntity<String> updateServiceTrigger(@PathVariable Long id, @Valid @RequestBody ServiceRequest request) {
+         professionalReviewRepository.updateServiceValue(id.intValue(), request.getValue().doubleValue());
+
+        return ResponseEntity.ok("Serviço atualizado");
     }
 
 }

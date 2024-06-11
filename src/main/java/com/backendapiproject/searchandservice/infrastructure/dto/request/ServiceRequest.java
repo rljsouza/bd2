@@ -21,7 +21,7 @@ public class ServiceRequest {
     @NotNull
     private Integer duration;
     @NotNull
-    private List<ServiceTypeRequest> serviceTypes;
+    private List<BasicRequest> serviceTypes;
     @NotBlank
     private String description;
     @NotNull

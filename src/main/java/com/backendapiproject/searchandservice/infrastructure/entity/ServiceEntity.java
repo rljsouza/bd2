@@ -15,15 +15,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,11 +72,36 @@ public class ServiceEntity implements Serializable {
     @Column(name = "image_url")
     private List<String> images;
 
-    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "service", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<BusinessHoursEntity> businessHours;
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReviewEntity> reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "professional_id")
+    private ProfessionalEntity professional;
+
+
+
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "last_updated_at")
+    private LocalDateTime lastUpdatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.lastUpdatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.lastUpdatedAt = LocalDateTime.now();
+    }
 
 }
 

@@ -54,7 +54,8 @@ public class BusinessHoursEntity implements Serializable {
     @Column(name = "except_date")
     private List<LocalDate> exceptDates;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "service_id")
     private ServiceEntity service;
+
 }

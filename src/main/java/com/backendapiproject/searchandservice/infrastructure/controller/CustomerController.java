@@ -5,6 +5,7 @@ import com.backendapiproject.searchandservice.infrastructure.annotation.Authoriz
 import com.backendapiproject.searchandservice.infrastructure.dto.request.CustomerRequest;
 import com.backendapiproject.searchandservice.infrastructure.dto.response.CustomerResponse;
 import com.backendapiproject.searchandservice.infrastructure.mapper.CustomerMapper;
+import com.backendapiproject.searchandservice.infrastructure.repository.CustomerReviewRepository;
 import com.backendapiproject.searchandservice.usecase.CreateCustomerUseCase;
 import com.backendapiproject.searchandservice.usecase.DeleteCustomerByIdUseCase;
 import com.backendapiproject.searchandservice.usecase.GetCustomerByIdUseCase;
@@ -36,6 +37,8 @@ public class CustomerController {
     private final DeleteCustomerByIdUseCase deleteCustomerByIdUseCase;
     private final ListCustomersUseCase listCustomersUseCase;
     private final CustomerMapper mapper;
+    private final CustomerReviewRepository customerReviewRepository;
+
 
 
     @PostMapping
@@ -58,11 +61,18 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    @Authorize(value = "ROLE_USER")
+    //@Authorize(value = "ROLE_USER")
     public ResponseEntity<Void> deleteCustomerById(@PathVariable Long id) {
         deleteCustomerByIdUseCase.execute(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @DeleteMapping("/trigger/{id}")
+    //@Authorize(value = "ROLE_USER")
+    public ResponseEntity<Void> deleteCustomerTriggerrById(@PathVariable Long id) {
+        customerReviewRepository.deleteCustomerById(id.intValue());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<CustomerResponse>> getAllCustomers() {

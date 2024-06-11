@@ -25,10 +25,12 @@ public class AddServiceUseCaseImpl implements AddServiceUseCase {
     @Override
     public Professional execute(Service service, Long professionalId) {
         var professional = getProfessionalById.execute(professionalId);
+        service.setProfessional(professional);
         var serviceSaved =  serviceGateway.save(service);
         service.getBusinessHours().forEach(bus ->  bus.setService(serviceSaved));
-        var businessHours = businessHoursUseCase.create(service.getBusinessHours());
+        businessHoursUseCase.create(service.getBusinessHours());
         professional.getServices().add(serviceSaved);
         return updateProfessionalUseCase.execute(professional, professionalId);
-    };
+
+    }
 }
